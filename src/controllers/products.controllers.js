@@ -24,39 +24,39 @@ export const getSingleProducts = async (req, res) => {
 };
 
 export const createProducts = async (req, res) => {
-  const productthumbnail = req.body.productthumbnail;
-  const producttitle = req.body.producttitle;
-  const productdescription = req.body.productdescription;
-  const productcost = req.body.productcost;
-  const onoffer = req.body.onoffer;
-
-  if (!productthumbnail) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Product Thumbnail required" });
-  }
-  if (!producttitle) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Product Title required" });
-  }
-  if (!productdescription) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Product Description required" });
-  }
-  if (!productcost) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Product Cost required" });
-  }
-  if (!onoffer) {
-    return res
-      .status(400)
-      .json({ success: false, message: "On offer required" });
-  }
-
   try {
+    const productthumbnail = req.body.productthumbnail;
+    const producttitle = req.body.producttitle;
+    const productdescription = req.body.productdescription;
+    const productcost = req.body.productcost;
+    const onoffer = req.body.onoffer;
+
+    if (!productthumbnail) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Product Thumbnail required" });
+    }
+    if (!producttitle) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Product Title required" });
+    }
+    if (!productdescription) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Product Description required" });
+    }
+    if (!productcost) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Product Cost required" });
+    }
+    if (!onoffer) {
+      return res
+        .status(400)
+        .json({ success: false, message: "On offer required" });
+    }
+
     const insert = await pool.query(
       "INSERT INTO products (productthumbnail, producttitle, productdescription, productcost, onoffer) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       [productthumbnail, producttitle, productdescription, productcost, onoffer]
@@ -72,47 +72,47 @@ export const createProducts = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-  const productthumbnail = req.body.productthumbnail;
-  const producttitle = req.body.producttitle;
-  const productdescription = req.body.productdescription;
-  const productcost = req.body.productcost;
-  const onoffer = req.body.onoffer;
-
-  const id = req.params.id;
-
-  let updateOperation;
-  if (productthumbnail) {
-    updateOperation = await pool.query(
-      "UPDATE products SET productthumbnail = $1 WHERE id=$2",
-      [productthumbnail, id]
-    );
-  }
-  if (producttitle) {
-    updateOperation = await pool.query(
-      "UPDATE products SET producttitle = $1 WHERE id=$2",
-      [producttitle, id]
-    );
-  }
-  if (productdescription) {
-    updateOperation = await pool.query(
-      "UPDATE products SET productdescription = $1 WHERE id=$2",
-      [productdescription, id]
-    );
-  }
-  if (productcost) {
-    updateOperation = await pool.query(
-      "UPDATE products SET productcost = $1 WHERE id=$2",
-      [productcost, id]
-    );
-  }
-  if (onoffer) {
-    updateOperation = await pool.query(
-      "UPDATE products SET onoffer = $1 WHERE id=$2",
-      [onoffer, id]
-    );
-  }
-
   try {
+    const productthumbnail = req.body.productthumbnail;
+    const producttitle = req.body.producttitle;
+    const productdescription = req.body.productdescription;
+    const productcost = req.body.productcost;
+    const onoffer = req.body.onoffer;
+
+    const id = req.params.id;
+
+    let updateOperation;
+    if (productthumbnail) {
+      updateOperation = await pool.query(
+        "UPDATE products SET productthumbnail = $1 WHERE id=$2",
+        [productthumbnail, id]
+      );
+    }
+    if (producttitle) {
+      updateOperation = await pool.query(
+        "UPDATE products SET producttitle = $1 WHERE id=$2",
+        [producttitle, id]
+      );
+    }
+    if (productdescription) {
+      updateOperation = await pool.query(
+        "UPDATE products SET productdescription = $1 WHERE id=$2",
+        [productdescription, id]
+      );
+    }
+    if (productcost) {
+      updateOperation = await pool.query(
+        "UPDATE products SET productcost = $1 WHERE id=$2",
+        [productcost, id]
+      );
+    }
+    if (onoffer) {
+      updateOperation = await pool.query(
+        "UPDATE products SET onoffer = $1 WHERE id=$2",
+        [onoffer, id]
+      );
+    }
+
     if (updateOperation.rowCount === 1) {
       res
         .status(200)
